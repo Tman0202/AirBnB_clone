@@ -47,8 +47,5 @@ class FileStorage:
                 for key in reloded.keys():
                     new_obj = eval(reloded[key]["__class__"])(**reloded[key])
                     self.new(new_obj)
-                #   reloded[key]["__class__"] means Bsasemodel  ...  so
-                # ..Basemode(**reloded[key])....reloded[key]..means dictionary part or (value) part of json file in reloded
-                #  reloded[key]["__class__"] == 'BaseModel' so we use eval
         except FileNotFoundError:
             return
