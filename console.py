@@ -4,28 +4,32 @@ from models import storage
 from models.base_model import BaseModel
 import shlex
 
-
 class HBNBCommand(cmd.Cmd):
     """Define the holbertonBnB comand interpreter
     Attributes:
         prompt (str): the command prompt.
     """
-
     prompt = "(hbnb) "
-    __classes = {"BaseModel", "User", "State", "City", "Place", "Amenity", "Review"}
-
-    def do_quit(self, arg):
-        """Quit command to exit the program"""
-        return True
-
-    def do_EOF(self, arg):
-        """EOF signal to exit the program"""
-        print("")
-        return True
+    __classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+    }
 
     def emptyline(self):
-        """Do nothing upon receiving empty line"""
         pass
+
+    def do_quit(self, s):
+        """Quit command to exit the program \n"""
+        return True
+
+    def do_EOF(self):
+        """to exit the shell ctrl-c"""
+        return True
 
     def do_create(self, arg):
         """Usage: create <class>
@@ -129,15 +133,13 @@ class HBNBCommand(cmd.Cmd):
         elif type(eval(argl[2])) == dict:
             obj = objdict["{}.{}".format(argl[0], argl[1])]
             for k, v in eval(argl[2]).items():
-                if k in obj.__class__.__dict__.keys() and type(
-                    obj.__class__.__dict__[k]
-                ) in {str, int, float}:
+                if (k in obj.__class__.__dict__.keys() and
+                        type(obj.__class__.__dict__[k]) in {str, int, float}):
                     valtype = type(obj.__class__.__dict__[k])
                     obj.__dict__[k] = valtype(v)
                 else:
                     obj.__dict__[k] = v
         storage.save()
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
