@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Entry point to the command interpreter"""
 import shlex
-from AirBnB.AirBnB_clone.models.engine import file_storage
-from AirBnB.AirBnB_clone.models import base_model, storage
+from models import storage
 import cmd
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
         """Creates new instance of Basemodel and saves it to JSON file"""
         if obj:
             if obj in HBNBCommand.__classes:
-                new_obj = base_model.BaseModel()
+                new_obj = BaseModel()
                 new_obj.save()
                 print(new_obj.id)
             else:
