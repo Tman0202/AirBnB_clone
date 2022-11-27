@@ -76,7 +76,6 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         """Handles End Of File character.
         """
-        print()
         return True
 
     def do_quit(self, line):
